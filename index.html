@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VIB Resin – Profesjonalne Posadzki Żywiczne</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;800&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>emailjs.init('r58HUtGe2VAqR_bU5');</script>
+  <style>
+    /* ── THEME TOKENS ── */
+    :root,
+    [data-theme="dark"] {
+      --bg:        #0a0a0a;
+      --bg-2:      #111111;
+      --bg-3:      #1a1a1a;
+      --bg-4:      #222222;
+      --border:    rgba(255,255,255,0.08);
+      --border-hi: rgba(255,255,255,0.22);
+      --text:      #f0f0f0;
+      --text-2:    rgba(255,255,255,0.55);
+      --text-3:    rgba(255,255,255,0.28);
+      --accent:    #ffffff;
+      --accent-inv:#000000;
+      --muted:     rgba(255,255,255,0.35);
+    }
+    [data-theme="light"] {
+      --bg:        #ffffff;
+      --bg-2:      #f5f5f5;
+      --bg-3:      #eeeeee;
+      --bg-4:      #e5e5e5;
+      --border:    rgba(0,0,0,0.08);
+      --border-hi: rgba(0,0,0,0.22);
+      --text:      #0a0a0a;
+      --text-2:    rgba(0,0,0,0.55);
+      --text-3:    rgba(0,0,0,0.28);
+      --accent:    #000000;
+      --accent-inv:#ffffff;
+      --muted:     rgba(0,0,0,0.35);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Barlow', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    /* ── NAVBAR ── */
+    .navbar {
+      background: var(--bg) !important;
+      border-bottom: 1px solid var(--border);
+      padding: 14px 0;
+      position: fixed; top: 0; width: 100%; z-index: 1000;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .navbar-brand span {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: 1.6rem;
+      letter-spacing: 0.04em;
+      color: var(--text);
+      margin-left: 10px;
+      vertical-align: middle;
+    }
+    .navbar-brand span em {
+      color: var(--text);
+      font-style: normal;
+      opacity: 0.5;
+    }
+    .nav-link {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-2) !important;
+      padding: 6px 16px !important;
+      transition: color 0.2s;
+    }
+    .nav-link:hover { color: var(--text) !important; }
+    .btn-nav {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: var(--accent);
+      color: var(--accent-inv) !important;
+      border-radius: 3px;
+      padding: 8px 22px !important;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+    .btn-nav:hover { opacity: 0.85; transform: translateY(-1px); }
+
+    /* ── THEME TOGGLE ── */
+    .theme-toggle {
+      background: none;
+      border: 1px solid var(--border-hi);
+      border-radius: 3px;
+      color: var(--text-2);
+      width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+      font-size: 0.9rem;
+      margin-left: 8px;
+    }
+    .theme-toggle:hover { border-color: var(--text); color: var(--text); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding-top: 80px;
+    }
+    .hero-grid-lines {
+      position: absolute; inset: 0; opacity: 0.04;
+      background-image:
+        linear-gradient(to right, var(--text) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--text) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+    .hero-tag {
+      display: inline-block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: 0.78rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-2);
+      border: 1px solid var(--border-hi);
+      border-radius: 2px;
+      padding: 4px 12px;
+      margin-bottom: 18px;
+    }
+    .hero h1 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: clamp(3rem, 7vw, 6rem);
+      line-height: 0.95;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      margin-bottom: 24px;
+    }
+    .hero h1 .accent { color: var(--text); opacity: 0.45; }
+    .hero p {
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: var(--text-2);
+      max-width: 480px;
+      line-height: 1.7;
+      margin-bottom: 36px;
+    }
+    .btn-primary-cta {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: var(--accent);
+      color: var(--accent-inv);
+      border: none;
+      border-radius: 3px;
+      padding: 14px 36px;
+      display: inline-block;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+    .btn-primary-cta:hover {
+      opacity: 0.85;
+      color: var(--accent-inv);
+      transform: translateY(-2px);
+    }
+    .btn-secondary-cta {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: transparent;
+      color: var(--text-2);
+      border: 1px solid var(--border-hi);
+      border-radius: 3px;
+      padding: 13px 36px;
+      display: inline-block;
+      text-decoration: none;
+      margin-left: 12px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-secondary-cta:hover { border-color: var(--text); color: var(--text); }
+
+    .hero-visual {
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hero-circle-bg {
+      width: 460px; height: 460px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+    .hero-circle-bg::before {
+      content: '';
+      position: absolute;
+      width: 380px; height: 380px;
+      border-radius: 50%;
+      border: 1px solid var(--border-hi);
+    }
+    .hero-circle-bg::after {
+      content: '';
+      position: absolute;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      border: 1px dashed var(--border-hi);
+      animation: spin 30s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .hero-logo-big {
+      width: 200px; height: 200px;
+      object-fit: contain;
+      position: relative; z-index: 1;
+      animation: float 5s ease-in-out infinite;
+      filter: var(--logo-filter, none);
+    }
+    [data-theme="light"] .hero-logo-big { filter: invert(1); }
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: 96px 0; }
+    .section-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      display: block;
+      margin-bottom: 10px;
+    }
+    .section-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.05;
+      color: var(--text);
+    }
+    .section-sub {
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--text-2);
+      margin-top: 12px;
+      line-height: 1.7;
+    }
+
+    /* ── SERVICES ── */
+    #uslugi { background: var(--bg-2); }
+    .service-card {
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 36px 28px;
+      height: 100%;
+      transition: border-color 0.25s, transform 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+    .service-card:hover { border-color: var(--border-hi); transform: translateY(-4px); }
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-icon {
+      width: 48px; height: 48px;
+      border: 1px solid var(--border-hi);
+      border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+    }
+    .service-icon i { font-size: 1.2rem; color: var(--text-2); }
+    .service-card h4 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 1.2rem;
+      letter-spacing: 0.04em;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+    .service-card p { font-size: 0.9rem; color: var(--text-2); line-height: 1.65; }
+
+    /* ── GALLERY ── */
+    #realizacje { background: var(--bg); }
+    .gallery-filter { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 36px; }
+    .filter-btn {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: 0.82rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: transparent;
+      color: var(--text-3);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 7px 18px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .filter-btn.active, .filter-btn:hover {
+      background: var(--accent);
+      color: var(--accent-inv);
+      border-color: var(--accent);
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .gallery-item {
+      position: relative; border-radius: 6px; overflow: hidden;
+      aspect-ratio: 4/3; background: var(--bg-3); cursor: pointer;
+    }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+    .gallery-item:hover img { transform: scale(1.06); }
+    .gallery-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 55%);
+      opacity: 0; transition: opacity 0.3s;
+      display: flex; align-items: flex-end; padding: 20px;
+    }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+    .gallery-overlay-text h5 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700; font-size: 1rem; color: #fff; margin-bottom: 3px;
+    }
+    .gallery-overlay-text span {
+      font-size: 0.75rem; color: rgba(255,255,255,0.6);
+      font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    .badge-status {
+      position: absolute; top: 12px; right: 12px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700; font-size: 0.68rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 4px 10px; border-radius: 2px;
+    }
+    .badge-done { background: rgba(255,255,255,0.9); color: #000; }
+    .badge-progress { background: rgba(0,0,0,0.7); color: #fff; border: 1px solid rgba(255,255,255,0.3); }
+    .gallery-placeholder {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 10px; background: var(--bg-3);
+    }
+    .gallery-placeholder i { font-size: 2rem; color: var(--border-hi); }
+    .gallery-placeholder span { font-size: 0.75rem; color: var(--text-3); letter-spacing: 0.08em; text-transform: uppercase; }
+
+    /* ── WHY US ── */
+    #dlaczego-my { background: var(--bg-2); }
+    .why-card {
+      display: flex; gap: 20px; align-items: flex-start;
+      padding: 28px; background: var(--bg-3);
+      border-radius: 6px; border: 1px solid var(--border);
+      height: 100%; transition: border-color 0.2s;
+    }
+    .why-card:hover { border-color: var(--border-hi); }
+    .why-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800; font-size: 2.5rem; line-height: 1;
+      color: var(--border-hi); flex-shrink: 0; width: 44px;
+    }
+    .why-card h5 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700; font-size: 1.05rem; color: var(--text);
+      margin-bottom: 8px; letter-spacing: 0.03em;
+    }
+    .why-card p { font-size: 0.88rem; color: var(--text-2); line-height: 1.65; }
+
+    /* ── PROCESS ── */
+    #proces { background: var(--bg); }
+    .process-step {
+      position: relative; padding-left: 60px; padding-bottom: 48px;
+    }
+    .process-step:last-child { padding-bottom: 0; }
+    .process-step::before {
+      content: '';
+      position: absolute; left: 19px; top: 38px;
+      width: 1px; bottom: 0;
+      background: linear-gradient(to bottom, var(--border-hi), transparent);
+    }
+    .process-step:last-child::before { display: none; }
+    .step-num {
+      position: absolute; left: 0; top: 0;
+      width: 40px; height: 40px;
+      background: var(--bg-3);
+      border: 1px solid var(--border-hi);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800; font-size: 0.9rem; color: var(--text);
+    }
+    .process-step h4 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700; font-size: 1.1rem; color: var(--text);
+      margin-bottom: 6px; padding-top: 6px;
+    }
+    .process-step p { font-size: 0.88rem; color: var(--text-2); line-height: 1.65; }
+
+    /* ── CONTACT ── */
+    #kontakt { background: var(--bg-2); }
+    .contact-box {
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 48px 40px;
+    }
+    .form-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600; font-size: 0.78rem;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--text-2); margin-bottom: 6px;
+    }
+    .form-control, .form-select {
+      background: var(--bg-4) !important;
+      border: 1px solid var(--border) !important;
+      border-radius: 4px !important;
+      color: var(--text) !important;
+      padding: 12px 16px !important;
+      font-size: 0.95rem !important;
+      transition: border-color 0.2s !important;
+    }
+    .form-control:focus, .form-select:focus {
+      border-color: var(--border-hi) !important;
+      box-shadow: 0 0 0 3px rgba(128,128,128,0.1) !important;
+      outline: none !important;
+    }
+    .form-control::placeholder { color: var(--text-3) !important; }
+    .form-select option { background: var(--bg-4); color: var(--text); }
+    .btn-submit {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700; font-size: 1rem;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      background: var(--accent); color: var(--accent-inv);
+      border: none; border-radius: 4px;
+      padding: 14px 40px; width: 100%;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+    .btn-submit:hover { opacity: 0.85; transform: translateY(-1px); }
+    .contact-info-item {
+      display: flex; gap: 16px; align-items: flex-start; margin-bottom: 28px;
+    }
+    .contact-info-icon {
+      width: 44px; height: 44px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .contact-info-icon i { color: var(--text-2); font-size: 1.1rem; }
+    .contact-info-text label {
+      display: block; font-size: 0.72rem;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--muted); font-weight: 600; margin-bottom: 3px;
+    }
+    .contact-info-text a, .contact-info-text span {
+      font-size: 0.98rem; color: var(--text);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .contact-info-text a:hover { color: var(--text-2); }
+
+    #form-notification {
+      display: none; margin-top: 12px;
+      padding: 14px 18px; border-radius: 4px; font-size: 0.9rem;
+    }
+    #form-notification.success {
+      background: var(--bg-4);
+      border: 1px solid var(--border-hi);
+      color: var(--text);
+    }
+    #form-notification.error {
+      background: var(--bg-4);
+      border: 1px solid rgba(200,50,50,0.4);
+      color: #e08080;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      padding: 40px 0 28px;
+    }
+    .footer-brand {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800; font-size: 1.4rem; color: var(--text);
+    }
+    .footer-brand em { color: var(--text-3); font-style: normal; }
+    footer p { font-size: 0.85rem; color: var(--text-3); }
+    .footer-link {
+      font-size: 0.85rem; color: var(--text-3);
+      text-decoration: none; display: block;
+      padding: 3px 0; transition: color 0.2s;
+    }
+    .footer-link:hover { color: var(--text); }
+    .footer-heading {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700; font-size: 0.72rem;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--text-3); margin-bottom: 14px;
+    }
+    .social-link {
+      display: inline-flex; width: 36px; height: 36px;
+      border: 1px solid var(--border); border-radius: 4px;
+      align-items: center; justify-content: center;
+      color: var(--text-3); text-decoration: none;
+      transition: all 0.2s; margin-right: 6px;
+    }
+    .social-link:hover { border-color: var(--text); color: var(--text); }
+    .divider { border-color: var(--border); }
+
+    /* ── SCROLL TOP ── */
+    #scrollTop {
+      position: fixed; bottom: 28px; right: 28px; z-index: 999;
+      width: 44px; height: 44px;
+      background: var(--accent); border: none; border-radius: 4px;
+      color: var(--accent-inv); font-size: 1.1rem;
+      display: none; align-items: center; justify-content: center;
+      cursor: pointer; transition: opacity 0.2s, transform 0.15s;
+    }
+    #scrollTop:hover { opacity: 0.8; transform: translateY(-2px); }
+
+    /* ── ANIM ── */
+    .fade-up {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: none; }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      .hero-circle-bg { width: 300px; height: 300px; }
+      .hero-logo-big { width: 140px; height: 140px; }
+      .btn-secondary-cta { margin-left: 0; margin-top: 10px; }
+      .contact-box { padding: 32px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center" href="#">
+      <img src="image-Photoroom.png" alt="VIB Resin logo" style="height:46px" />
+      <span>VIB<em>Resin</em></span>
+    </a>
+    <div class="d-flex align-items-center gap-2 ms-auto">
+      <button class="navbar-toggler border-0 text-body" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <button class="theme-toggle" id="themeToggle" title="Przełącz motyw">
+        <i class="fas fa-moon" id="themeIcon"></i>
+      </button>
+    </div>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
+        <li class="nav-item"><a class="nav-link" href="#uslugi">Usługi</a></li>
+        <li class="nav-item"><a class="nav-link" href="#realizacje">Realizacje</a></li>
+        <li class="nav-item"><a class="nav-link" href="#dlaczego-my">O nas</a></li>
+        <li class="nav-item"><a class="nav-link" href="#proces">Jak działamy</a></li>
+        <li class="nav-item ms-lg-2">
+          <a class="nav-link btn-nav" href="#kontakt">Wycena bezpłatna</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-grid-lines"></div>
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6 mb-5 mb-lg-0">
+        <div class="hero-tag">Profesjonalne Posadzki Żywiczne</div>
+        <h1>
+          Posadzki<br>
+          <span class="accent">żywiczne</span><br>
+          nowej generacji
+        </h1>
+        <p>Tworzymy trwałe, estetyczne i funkcjonalne podłogi epoksydowe dla przemysłu, komercji i sektora prywatnego. Kompleksowa realizacja od projektu do odbioru.</p>
+        <a href="#kontakt" class="btn-primary-cta">Bezpłatna wycena</a>
+        <a href="#realizacje" class="btn-secondary-cta">Zobacz realizacje</a>
+      </div>
+      <div class="col-lg-6 text-center">
+        <div class="hero-visual">
+          <div class="hero-circle-bg">
+            <img class="hero-logo-big" src="image-Photoroom.png" alt="VIB Resin" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="uslugi">
+  <div class="container">
+    <div class="row mb-5">
+      <div class="col-lg-5">
+        <span class="section-label">Czym się zajmujemy</span>
+        <h2 class="section-title">Nasze usługi</h2>
+      </div>
+      <div class="col-lg-6 offset-lg-1">
+        <p class="section-sub mt-lg-4">Specjalizujemy się w systemach posadzkowych na bazie żywic epoksydowych i poliuretanowych, dostosowanych do indywidualnych potrzeb każdego klienta.</p>
+      </div>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-4 fade-up">
+        <div class="service-card">
+          <div class="service-icon"><i class="fas fa-industry"></i></div>
+          <h4>Posadzki przemysłowe</h4>
+          <p>Wytrzymałe powierzchnie do hal produkcyjnych, magazynów i zakładów przemysłowych. Odporność na obciążenia mechaniczne i chemikalia.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4 fade-up" style="transition-delay:.08s">
+        <div class="service-card">
+          <div class="service-icon"><i class="fas fa-store"></i></div>
+          <h4>Posadzki komercyjne</h4>
+          <p>Estetyczne i trwałe rozwiązania dla sklepów, galerii handlowych, biur i obiektów usługowych. Szeroki wybór kolorów i tekstur.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4 fade-up" style="transition-delay:.16s">
+        <div class="service-card">
+          <div class="service-icon"><i class="fas fa-home"></i></div>
+          <h4>Posadzki mieszkalne</h4>
+          <p>Nowoczesne podłogi do domów i apartamentów. Idealne do kuchni, łazienek i salonów — bezspoinowe i łatwe w pielęgnacji.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4 fade-up" style="transition-delay:.24s">
+        <div class="service-card">
+          <div class="service-icon"><i class="fas fa-car"></i></div>
+          <h4>Posadzki garażowe</h4>
+          <p>Odporne na oleje, paliwa i ścieranie powierzchnie do garaży prywatnych i stacji serwisowych. Antypoślizgowe wykończenie.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4 fade-up" style="transition-delay:.32s">
+        <div class="service-card">
+          <div class="service-icon"><i class="fas fa-flask"></i></div>
+          <h4>Systemy antystatyczne</h4>
+          <p>Specjalistyczne podłogi ESD do serwerowni, laboratoriów i pomieszczeń wrażliwych na wyładowania elektrostatyczne.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4 fade-up" style="transition-delay:.4s">
+        <div class="service-card">
+          <div class="service-icon"><i class="fas fa-paint-roller"></i></div>
+          <h4>Renowacja posadzek</h4>
+          <p>Naprawa i renowacja istniejących posadzek betonowych. Uzupełnianie pęknięć, wyrównanie i nałożenie nowych warstw żywicy.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="realizacje">
+  <div class="container">
+    <div class="row mb-4 align-items-end">
+      <div class="col-lg-5">
+        <span class="section-label">Portfolio</span>
+        <h2 class="section-title">Nasze realizacje</h2>
+        <p class="section-sub">Ukończone projekty i bieżące realizacje.</p>
+      </div>
+    </div>
+    <div class="gallery-filter mb-4">
+      <button class="filter-btn active" data-filter="all">Wszystkie</button>
+      <button class="filter-btn" data-filter="done">Ukończone</button>
+      <button class="filter-btn" data-filter="progress">W trakcie</button>
+      <button class="filter-btn" data-filter="industrial">Przemysłowe</button>
+      <button class="filter-btn" data-filter="commercial">Komercyjne</button>
+      <button class="filter-btn" data-filter="residential">Mieszkalne</button>
+    </div>
+    <div class="gallery-grid" id="galleryGrid">
+      <div class="gallery-item fade-up" data-cat="done industrial">
+        <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Hala produkcyjna – Gliwice</span></div>
+        <div class="badge-status badge-done">Ukończone</div>
+        <div class="gallery-overlay"><div class="gallery-overlay-text"><h5>Hala produkcyjna – Gliwice</h5><span>Przemysłowe</span></div></div>
+      </div>
+      <div class="gallery-item fade-up" data-cat="progress commercial">
+        <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Showroom samochodowy – Katowice</span></div>
+        <div class="badge-status badge-progress">W trakcie</div>
+        <div class="gallery-overlay"><div class="gallery-overlay-text"><h5>Showroom samochodowy – Katowice</h5><span>Komercyjne</span></div></div>
+      </div>
+      <div class="gallery-item fade-up" data-cat="done residential">
+        <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Apartament – Kraków</span></div>
+        <div class="badge-status badge-done">Ukończone</div>
+        <div class="gallery-overlay"><div class="gallery-overlay-text"><h5>Apartament – Kraków</h5><span>Mieszkalne</span></div></div>
+      </div>
+      <div class="gallery-item fade-up" data-cat="done commercial">
+        <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Restauracja – Wrocław</span></div>
+        <div class="badge-status badge-done">Ukończone</div>
+        <div class="gallery-overlay"><div class="gallery-overlay-text"><h5>Restauracja – Wrocław</h5><span>Komercyjne</span></div></div>
+      </div>
+      <div class="gallery-item fade-up" data-cat="progress industrial">
+        <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Magazyn logistyczny – Sosnowiec</span></div>
+        <div class="badge-status badge-progress">W trakcie</div>
+        <div class="gallery-overlay"><div class="gallery-overlay-text"><h5>Magazyn logistyczny – Sosnowiec</h5><span>Przemysłowe</span></div></div>
+      </div>
+      <div class="gallery-item fade-up" data-cat="done residential">
+        <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Dom jednorodzinny – Tychy</span></div>
+        <div class="badge-status badge-done">Ukończone</div>
+        <div class="gallery-overlay"><div class="gallery-overlay-text"><h5>Dom jednorodzinny – Tychy</h5><span>Mieszkalne</span></div></div>
+      </div>
+      <div class="gallery-item fade-up" data-cat="done industrial">
+        <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Zakład produkcyjny – Bytom</span></div>
+        <div class="badge-status badge-done">Ukończone</div>
+        <div class="gallery-overlay"><div class="gallery-overlay-text"><h5>Zakład produkcyjny – Bytom</h5><span>Przemysłowe</span></div></div>
+      </div>
+      <div class="gallery-item fade-up" data-cat="progress commercial">
+        <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Biuro korporacyjne – Warszawa</span></div>
+        <div class="badge-status badge-progress">W trakcie</div>
+        <div class="gallery-overlay"><div class="gallery-overlay-text"><h5>Biuro korporacyjne – Warszawa</h5><span>Komercyjne</span></div></div>
+      </div>
+      <div class="gallery-item fade-up" data-cat="done residential">
+        <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Garaż prywatny – Zabrze</span></div>
+        <div class="badge-status badge-done">Ukończone</div>
+        <div class="gallery-overlay"><div class="gallery-overlay-text"><h5>Garaż prywatny – Zabrze</h5><span>Mieszkalne</span></div></div>
+      </div>
+    </div>
+    <div class="text-center mt-5">
+      <p class="section-sub mb-3">Chcesz zobaczyć więcej lub dodać swoje zdjęcia?</p>
+      <a href="#kontakt" class="btn-primary-cta">Skontaktuj się z nami</a>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section id="dlaczego-my">
+  <div class="container">
+    <div class="row mb-5">
+      <div class="col-lg-5">
+        <span class="section-label">Dlaczego my</span>
+        <h2 class="section-title">Jakość, którą widać i czuć</h2>
+      </div>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-3 fade-up">
+        <div class="why-card"><div class="why-num">01</div><div><h5>Certyfikowane materiały</h5><p>Używamy wyłącznie sprawdzonych systemów żywicznych od renomowanych producentów europejskich.</p></div></div>
+      </div>
+      <div class="col-md-6 col-lg-3 fade-up" style="transition-delay:.07s">
+        <div class="why-card"><div class="why-num">02</div><div><h5>Doświadczony zespół</h5><p>Nasi aplikatorzy posiadają wieloletnie doświadczenie i regularnie podnoszą swoje kwalifikacje.</p></div></div>
+      </div>
+      <div class="col-md-6 col-lg-3 fade-up" style="transition-delay:.14s">
+        <div class="why-card"><div class="why-num">03</div><div><h5>Gwarancja 5 lat</h5><p>Na każdą realizację udzielamy 5-letniej gwarancji jakości i szczelności posadzki.</p></div></div>
+      </div>
+      <div class="col-md-6 col-lg-3 fade-up" style="transition-delay:.21s">
+        <div class="why-card"><div class="why-num">04</div><div><h5>Terminowość</h5><p>Dotrzymujemy ustalonych terminów realizacji. Szanujemy czas klientów i ich harmonogramy.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="proces">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-5 mb-5 mb-lg-0">
+        <span class="section-label">Jak działamy</span>
+        <h2 class="section-title">Proces realizacji</h2>
+        <p class="section-sub mt-3">Każda realizacja przebiega według sprawdzonego schematu — od pierwszego kontaktu do finalnego odbioru.</p>
+        <a href="#kontakt" class="btn-primary-cta mt-4 d-inline-block">Rozpocznij projekt</a>
+      </div>
+      <div class="col-lg-6 offset-lg-1">
+        <div class="process-step fade-up">
+          <div class="step-num">1</div>
+          <h4>Bezpłatna wycena i oględziny</h4>
+          <p>Przyjeżdżamy na miejsce, oceniamy stan podłoża i omawiamy wymagania. Przygotowujemy szczegółową i bezpłatną wycenę.</p>
+        </div>
+        <div class="process-step fade-up">
+          <div class="step-num">2</div>
+          <h4>Projekt i dobór systemu</h4>
+          <p>Na podstawie wymagań dobieramy optymalny system żywiczny — kolor, fakturę i właściwości techniczne.</p>
+        </div>
+        <div class="process-step fade-up">
+          <div class="step-num">3</div>
+          <h4>Przygotowanie podłoża</h4>
+          <p>Frezowanie, szlifowanie i naprawa podłoża betonowego. To kluczowy etap decydujący o trwałości posadzki.</p>
+        </div>
+        <div class="process-step fade-up">
+          <div class="step-num">4</div>
+          <h4>Aplikacja systemu żywicznego</h4>
+          <p>Nakładamy kolejne warstwy zgodnie z dokumentacją techniczną i zaleceniami producenta.</p>
+        </div>
+        <div class="process-step fade-up">
+          <div class="step-num">5</div>
+          <h4>Odbiór i dokumentacja</h4>
+          <p>Wspólny odbiór końcowy z protokołem, dokumentacją fotograficzną i przekazaniem karty gwarancyjnej.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="kontakt">
+  <div class="container">
+    <div class="row mb-5">
+      <div class="col">
+        <span class="section-label">Kontakt</span>
+        <h2 class="section-title">Bezpłatna wycena</h2>
+        <p class="section-sub">Wypełnij formularz, a odezwiemy się w ciągu 24 godzin.</p>
+      </div>
+    </div>
+    <div class="row g-5">
+      <div class="col-lg-7 fade-up">
+        <div class="contact-box">
+          <form id="contactForm" novalidate>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label">Imię i nazwisko *</label>
+                <input type="text" class="form-control" id="name" placeholder="Jan Kowalski" required />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Telefon *</label>
+                <input type="tel" class="form-control" id="phone" placeholder="+48 000 000 000" required />
+              </div>
+              <div class="col-12">
+                <label class="form-label">Adres e-mail *</label>
+                <input type="email" class="form-control" id="email" placeholder="jan@firma.pl" required />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Rodzaj obiektu</label>
+                <select class="form-select" id="type">
+                  <option value="">Wybierz...</option>
+                  <option>Przemysłowy / magazyn</option>
+                  <option>Komercyjny / biuro</option>
+                  <option>Mieszkalny</option>
+                  <option>Garaż</option>
+                  <option>Inny</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Powierzchnia (m²)</label>
+                <input type="number" class="form-control" id="area" placeholder="np. 250" min="1" />
+              </div>
+              <div class="col-12">
+                <label class="form-label">Opis projektu</label>
+                <textarea class="form-control" id="message" rows="4" placeholder="Opisz krótko swój projekt, oczekiwania lub pytania..."></textarea>
+              </div>
+              <div class="col-12">
+                <button type="submit" class="btn-submit" id="submitBtn">
+                  <i class="fas fa-paper-plane me-2"></i>Wyślij zapytanie
+                </button>
+                <div id="form-notification"></div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-lg-5 fade-up" style="transition-delay:.1s">
+        <div class="contact-info-item">
+          <div class="contact-info-icon"><i class="fas fa-phone"></i></div>
+          <div class="contact-info-text"><label>Telefon</label><a href="tel:+48000000000">+48 000 000 000</a></div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-info-icon"><i class="fas fa-envelope"></i></div>
+          <div class="contact-info-text"><label>E-mail</label><a href="mailto:kontakt@vibresin.pl">kontakt@vibresin.pl</a></div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-info-icon"><i class="fas fa-map-marker-alt"></i></div>
+          <div class="contact-info-text"><label>Obszar działania</label><span>Śląsk, Małopolska, cała Polska</span></div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-info-icon"><i class="fas fa-clock"></i></div>
+          <div class="contact-info-text"><label>Godziny pracy</label><span>Pn – Pt: 7:00 – 18:00</span></div>
+        </div>
+        <div class="mt-4 p-4" style="background:var(--bg-4);border-radius:6px;border:1px solid var(--border)">
+          <p style="font-size:.82rem;color:var(--text-2);line-height:1.7;">
+            <i class="fas fa-shield-alt me-2" style="color:var(--text-3)"></i>
+            Twoje dane są bezpieczne. Nie udostępniamy ich osobom trzecim i nie wysyłamy spamu.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="row g-4 mb-4">
+      <div class="col-lg-4">
+        <div class="footer-brand mb-3">VIB<em>Resin</em></div>
+        <p style="max-width:280px;">Profesjonalne posadzki żywiczne dla przemysłu, komercji i budownictwa mieszkaniowego.</p>
+        <div class="mt-3">
+          <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div class="col-6 col-lg-2 offset-lg-1">
+        <div class="footer-heading">Usługi</div>
+        <a class="footer-link" href="#uslugi">Posadzki przemysłowe</a>
+        <a class="footer-link" href="#uslugi">Posadzki komercyjne</a>
+        <a class="footer-link" href="#uslugi">Posadzki mieszkalne</a>
+        <a class="footer-link" href="#uslugi">Renowacje</a>
+      </div>
+      <div class="col-6 col-lg-2">
+        <div class="footer-heading">Firma</div>
+        <a class="footer-link" href="#dlaczego-my">O nas</a>
+        <a class="footer-link" href="#realizacje">Realizacje</a>
+        <a class="footer-link" href="#proces">Jak działamy</a>
+        <a class="footer-link" href="#kontakt">Kontakt</a>
+      </div>
+      <div class="col-lg-3">
+        <div class="footer-heading">Kontakt</div>
+        <p style="font-size:.85rem;color:var(--text-3);line-height:1.8;">
+          kontakt@vibresin.pl<br>
+          +48 000 000 000<br>
+          Śląsk & cała Polska
+        </p>
+      </div>
+    </div>
+    <hr class="divider" />
+    <div class="d-flex flex-wrap justify-content-between align-items-center">
+      <p>© 2025 VIB Resin. Wszelkie prawa zastrzeżone.</p>
+      <p>Posadzki żywiczne · Epoksydowe · Poliuretanowe</p>
+    </div>
+  </div>
+</footer>
+
+<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <i class="fas fa-arrow-up"></i>
+</button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+<script>
+  // ── Theme Toggle ──
+  const html = document.documentElement;
+  const btn  = document.getElementById('themeToggle');
+  const icon = document.getElementById('themeIcon');
+  let theme = localStorage.getItem('vib-theme') || 'dark';
+
+  function applyTheme(t) {
+    html.setAttribute('data-theme', t);
+    icon.className = t === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+    localStorage.setItem('vib-theme', t);
+  }
+  applyTheme(theme);
+  btn.addEventListener('click', () => {
+    theme = theme === 'dark' ? 'light' : 'dark';
+    applyTheme(theme);
+  });
+
+  // ── Scroll-top ──
+  const st = document.getElementById('scrollTop');
+  window.addEventListener('scroll', () => {
+    st.style.display = window.scrollY > 500 ? 'flex' : 'none';
+  });
+
+  // ── Fade-up ──
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+  // ── Gallery filter ──
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      document.querySelectorAll('.gallery-item').forEach(item => {
+        const cats = item.dataset.cat || '';
+        item.style.display = (filter === 'all' || cats.includes(filter)) ? '' : 'none';
+      });
+    });
+  });
+
+  // ── Contact form ──
+  document.getElementById('contactForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const submitBtn = document.getElementById('submitBtn');
+    const notif = document.getElementById('form-notification');
+
+    const name    = document.getElementById('name').value.trim();
+    const phone   = document.getElementById('phone').value.trim();
+    const email   = document.getElementById('email').value.trim();
+    const type    = document.getElementById('type').value;
+    const area    = document.getElementById('area').value.trim();
+    const message = document.getElementById('message').value.trim();
+
+    if (!name || !phone || !email) {
+      notif.className = 'error';
+      notif.textContent = '⚠ Proszę wypełnić wszystkie wymagane pola.';
+      notif.style.display = 'block';
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Wysyłanie...';
+    notif.style.display = 'none';
+
+    try {
+      const prompt = `Jesteś asystentem firmy VIB Resin zajmującej się posadzkami żywicznymi. Klient wysłał zapytanie o wycenę. Wygeneruj krótką, profesjonalną odpowiedź potwierdzającą otrzymanie zapytania i informującą o kontakcie w ciągu 24h. Dane klienta:
+- Imię i nazwisko: ${name}
+- Telefon: ${phone}
+- Email: ${email}
+- Rodzaj obiektu: ${type || 'nie podano'}
+- Powierzchnia: ${area ? area + ' m²' : 'nie podano'}
+- Opis: ${message || 'brak opisu'}
+
+Odpowiedź po polsku, max 3 zdania, bez formatowania markdown.`;
+
+      const res = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 1000,
+          messages: [{ role: 'user', content: prompt }]
+        })
+      });
+
+      const data = await res.json();
+      const reply = data.content?.find(b => b.type === 'text')?.text
+        || 'Dziękujemy za zapytanie! Odezwiemy się w ciągu 24 godzin.';
+
+      notif.className = 'success';
+      notif.innerHTML = '<i class="fas fa-check-circle me-2"></i>' + reply;
+      notif.style.display = 'block';
+      form.reset();
+    } catch (err) {
+      notif.className = 'success';
+      notif.innerHTML = '<i class="fas fa-check-circle me-2"></i>Dziękujemy za zapytanie! Odezwiemy się w ciągu 24 godzin roboczych.';
+      notif.style.display = 'block';
+      form.reset();
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = '<i class="fas fa-paper-plane me-2"></i>Wyślij zapytanie';
+    }
+  });
+</script>
+</body>
+</html>
