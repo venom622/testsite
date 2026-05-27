@@ -24,6 +24,7 @@
       --accent:    #ffffff;
       --accent-inv:#000000;
       --muted:     rgba(255,255,255,0.35);
+      --logo-filter: none;
     }
     [data-theme="light"] {
       --bg:        #ffffff;
@@ -38,6 +39,7 @@
       --accent:    #000000;
       --accent-inv:#ffffff;
       --muted:     rgba(0,0,0,0.35);
+      --logo-filter: invert(1);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -53,17 +55,24 @@
     .navbar {
       background: var(--bg) !important;
       border-bottom: 1px solid var(--border);
-      padding: 14px 0;
+      padding: 10px 0;
       position: fixed; top: 0; width: 100%; z-index: 1000;
       transition: background 0.3s, border-color 0.3s;
     }
-    .navbar-brand span {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 800; font-size: 1.6rem;
-      letter-spacing: 0.04em; color: var(--text);
-      margin-left: 10px; vertical-align: middle;
+    /* navbar logo — adapts via CSS variable */
+    .navbar-logo {
+      height: 50px;
+      filter: var(--logo-filter);
+      transition: filter 0.3s;
     }
-    .navbar-brand span em { color: var(--text); font-style: normal; opacity: 0.5; }
+    /* footer logo */
+    .footer-logo {
+      height: 50px;
+      filter: var(--logo-filter);
+      transition: filter 0.3s;
+      display: block;
+      margin-bottom: 14px;
+    }
     .nav-link {
       font-family: 'Barlow Condensed', sans-serif;
       font-weight: 600; font-size: 1rem;
@@ -101,14 +110,6 @@
         linear-gradient(to right, var(--text) 1px, transparent 1px),
         linear-gradient(to bottom, var(--text) 1px, transparent 1px);
       background-size: 60px 60px; pointer-events: none;
-    }
-    .hero-tag {
-      display: inline-block;
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 600; font-size: 0.78rem;
-      letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--text-2); border: 1px solid var(--border-hi);
-      border-radius: 2px; padding: 4px 12px; margin-bottom: 18px;
     }
     .hero h1 {
       font-family: 'Barlow Condensed', sans-serif;
@@ -160,9 +161,9 @@
       width: 200px; height: 200px; object-fit: contain;
       position: relative; z-index: 1;
       animation: float 5s ease-in-out infinite;
-      filter: var(--logo-filter, none);
+      filter: var(--logo-filter);
+      transition: filter 0.3s;
     }
-    [data-theme="light"] .hero-logo-big { filter: invert(1); }
     @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
 
     section { padding: 96px 0; }
@@ -195,11 +196,6 @@
     }
     .service-card:hover { border-color: var(--border-hi); transform: translateY(-4px); }
     .service-card:hover::before { transform: scaleX(1); }
-    .service-icon {
-      width: 48px; height: 48px; border: 1px solid var(--border-hi);
-      border-radius: 4px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;
-    }
-    .service-icon i { font-size: 1.2rem; color: var(--text-2); }
     .service-card h4 {
       font-family: 'Barlow Condensed', sans-serif;
       font-weight: 700; font-size: 1.2rem; letter-spacing: 0.04em;
@@ -207,7 +203,6 @@
     }
     .service-card p { font-size: 0.9rem; color: var(--text-2); line-height: 1.65; }
 
-    /* GALLERY */
     #realizacje { background: var(--bg); }
     .gallery-filter { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 36px; }
     .filter-btn {
@@ -248,7 +243,6 @@
       font-size: 0.75rem; color: rgba(255,255,255,0.6);
       font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
     }
-    /* zoom icon on hover */
     .gallery-zoom-icon {
       position: absolute; top: 50%; left: 50%;
       transform: translate(-50%, -50%) scale(0.7);
@@ -262,7 +256,6 @@
     }
     .gallery-zoom-icon i { color: #fff; font-size: 1.2rem; }
     .gallery-item:hover .gallery-zoom-icon { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-
     .badge-status {
       position: absolute; top: 12px; right: 12px;
       font-family: 'Barlow Condensed', sans-serif;
@@ -271,21 +264,13 @@
     }
     .badge-done { background: rgba(255,255,255,0.9); color: #000; }
     .badge-progress { background: rgba(0,0,0,0.7); color: #fff; border: 1px solid rgba(255,255,255,0.3); }
-    .gallery-placeholder {
-      width: 100%; height: 100%;
-      display: flex; align-items: center; justify-content: center;
-      flex-direction: column; gap: 10px; background: var(--bg-3);
-    }
-    .gallery-placeholder i { font-size: 2rem; color: var(--border-hi); }
-    .gallery-placeholder span { font-size: 0.75rem; color: var(--text-3); letter-spacing: 0.08em; text-transform: uppercase; }
 
     /* LIGHTBOX */
     .lightbox-overlay {
       position: fixed; inset: 0; z-index: 9999;
       background: rgba(0,0,0,0.95);
       display: flex; align-items: center; justify-content: center;
-      opacity: 0; pointer-events: none;
-      transition: opacity 0.3s;
+      opacity: 0; pointer-events: none; transition: opacity 0.3s;
     }
     .lightbox-overlay.active { opacity: 1; pointer-events: all; }
     .lightbox-inner {
@@ -293,15 +278,12 @@
       display: flex; flex-direction: column; align-items: center;
     }
     .lightbox-img {
-      max-width: 90vw; max-height: 80vh;
-      object-fit: contain; border-radius: 4px;
+      max-width: 90vw; max-height: 80vh; object-fit: contain; border-radius: 4px;
       transform: scale(0.95); transition: transform 0.3s;
       box-shadow: 0 24px 80px rgba(0,0,0,0.6);
     }
     .lightbox-overlay.active .lightbox-img { transform: scale(1); }
-    .lightbox-caption {
-      margin-top: 16px; text-align: center;
-    }
+    .lightbox-caption { margin-top: 16px; text-align: center; }
     .lightbox-caption h5 {
       font-family: 'Barlow Condensed', sans-serif;
       font-weight: 700; font-size: 1.1rem; color: #fff; margin-bottom: 4px;
@@ -436,8 +418,6 @@
     }
 
     footer { background: var(--bg); border-top: 1px solid var(--border); padding: 40px 0 28px; }
-    .footer-brand { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 1.4rem; color: var(--text); }
-    .footer-brand em { color: var(--text-3); font-style: normal; }
     footer p { font-size: 0.85rem; color: var(--text-3); }
     .footer-link {
       font-size: 0.85rem; color: var(--text-3);
@@ -499,9 +479,8 @@
 <!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg">
   <div class="container">
-    <a class="navbar-brand d-flex align-items-center" href="#">
-      <img src="image-Photoroom.png" alt="RB Resins logo" style="height:46px" />
-      <span>RB<em>Resins</em></span>
+    <a class="navbar-brand" href="#">
+      <img src="icon.png" alt="RB Resins" class="navbar-logo" />
     </a>
     <div class="d-flex align-items-center gap-2 ms-auto">
       <button class="navbar-toggler border-0 text-body" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
@@ -518,7 +497,7 @@
         <li class="nav-item"><a class="nav-link" href="#dlaczego-my">O nas</a></li>
         <li class="nav-item"><a class="nav-link" href="#proces">Jak działamy</a></li>
         <li class="nav-item ms-lg-2">
-          <a class="nav-link btn-nav" href="#kontakt">Wycena bezpłatna</a>
+          <a class="nav-link btn-nav" href="#kontakt">Kontakt</a>
         </li>
       </ul>
     </div>
@@ -531,16 +510,15 @@
   <div class="container">
     <div class="row align-items-center">
       <div class="col-lg-6 mb-5 mb-lg-0">
-        <div class="hero-tag">Profesjonalne Posadzki Żywiczne</div>
-        <h1>Posadzki<br><span class="accent">żywiczne</span><br>nowej generacji</h1>
+        <h1>Posadzki<br><span class="accent">żywiczne</span></h1>
         <p>Tworzymy trwałe, estetyczne i funkcjonalne podłogi epoksydowe dla przemysłu, komercji i sektora prywatnego. Kompleksowa realizacja od projektu do odbioru.</p>
-        <a href="#kontakt" class="btn-primary-cta">Bezpłatna wycena</a>
+        <a href="#kontakt" class="btn-primary-cta">Kontakt</a>
         <a href="#realizacje" class="btn-secondary-cta">Zobacz realizacje</a>
       </div>
       <div class="col-lg-6 text-center">
         <div class="hero-visual">
           <div class="hero-circle-bg">
-            <img class="hero-logo-big" src="image-Photoroom.png" alt="RB Resins" />
+            <img class="hero-logo-big" src="icon.png" alt="RB Resins" />
           </div>
         </div>
       </div>
@@ -562,40 +540,22 @@
     </div>
     <div class="row g-4">
       <div class="col-md-6 col-lg-4 fade-up">
-        <div class="service-card">
-          <h4>Posadzki przemysłowe</h4>
-          <p>Wytrzymałe powierzchnie do hal produkcyjnych, magazynów i zakładów przemysłowych. Odporność na obciążenia mechaniczne i chemikalia.</p>
-        </div>
+        <div class="service-card"><h4>Posadzki przemysłowe</h4><p>Wytrzymałe powierzchnie do hal produkcyjnych, magazynów i zakładów przemysłowych. Odporność na obciążenia mechaniczne i chemikalia.</p></div>
       </div>
       <div class="col-md-6 col-lg-4 fade-up" style="transition-delay:.08s">
-        <div class="service-card">
-          <h4>Posadzki komercyjne</h4>
-          <p>Estetyczne i trwałe rozwiązania dla sklepów, galerii handlowych, biur i obiektów usługowych. Szeroki wybór kolorów i tekstur.</p>
-        </div>
+        <div class="service-card"><h4>Posadzki komercyjne</h4><p>Estetyczne i trwałe rozwiązania dla sklepów, galerii handlowych, biur i obiektów usługowych. Szeroki wybór kolorów i tekstur.</p></div>
       </div>
       <div class="col-md-6 col-lg-4 fade-up" style="transition-delay:.16s">
-        <div class="service-card">
-          <h4>Posadzki mieszkalne</h4>
-          <p>Nowoczesne podłogi do domów i apartamentów. Idealne do kuchni, łazienek i salonów — bezspoinowe i łatwe w pielęgnacji.</p>
-        </div>
+        <div class="service-card"><h4>Posadzki mieszkalne</h4><p>Nowoczesne podłogi do domów i apartamentów. Idealne do kuchni, łazienek i salonów — bezspoinowe i łatwe w pielęgnacji.</p></div>
       </div>
       <div class="col-md-6 col-lg-4 fade-up" style="transition-delay:.24s">
-        <div class="service-card">
-          <h4>Posadzki garażowe</h4>
-          <p>Odporne na oleje, paliwa i ścieranie powierzchnie do garaży prywatnych i stacji serwisowych. Antypoślizgowe wykończenie.</p>
-        </div>
+        <div class="service-card"><h4>Posadzki garażowe</h4><p>Odporne na oleje, paliwa i ścieranie powierzchnie do garaży prywatnych i stacji serwisowych. Antypoślizgowe wykończenie.</p></div>
       </div>
       <div class="col-md-6 col-lg-4 fade-up" style="transition-delay:.32s">
-        <div class="service-card">
-          <h4>Systemy antystatyczne</h4>
-          <p>Specjalistyczne podłogi ESD do serwerowni, laboratoriów i pomieszczeń wrażliwych na wyładowania elektrostatyczne.</p>
-        </div>
+        <div class="service-card"><h4>Systemy antystatyczne</h4><p>Specjalistyczne podłogi ESD do serwerowni, laboratoriów i pomieszczeń wrażliwych na wyładowania elektrostatyczne.</p></div>
       </div>
       <div class="col-md-6 col-lg-4 fade-up" style="transition-delay:.4s">
-        <div class="service-card">
-          <h4>Renowacja posadzek</h4>
-          <p>Naprawa i renowacja istniejących posadzek betonowych. Uzupełnianie pęknięć, wyrównanie i nałożenie nowych warstw żywicy.</p>
-        </div>
+        <div class="service-card"><h4>Renowacja posadzek</h4><p>Naprawa i renowacja istniejących posadzek betonowych. Uzupełnianie pęknięć, wyrównanie i nałożenie nowych warstw żywicy.</p></div>
       </div>
     </div>
   </div>
@@ -620,28 +580,25 @@
       <button class="filter-btn" data-filter="residential">Mieszkalne</button>
     </div>
     <div class="gallery-grid" id="galleryGrid">
-
-      <!-- REAL PHOTOS -->
       <div class="gallery-item fade-up" data-cat="done industrial" data-title="Posadzka strefowa – obiekt przemysłowy" data-label="Przemysłowe">
         <img src="IMG-20260429-WA0030.jpg" alt="Posadzka strefowa – obiekt przemysłowy" loading="lazy" />
         <div class="badge-status badge-done">Ukończone</div>
         <div class="gallery-zoom-icon"><i class="fas fa-expand"></i></div>
         <div class="gallery-overlay"><div class="gallery-overlay-text"><h5>Posadzka strefowa – obiekt przemysłowy</h5><span>Przemysłowe</span></div></div>
       </div>
-
       <div class="gallery-item fade-up" data-cat="done industrial" data-title="Posadzka epoksydowa – hala magazynowa" data-label="Przemysłowe">
         <img src="IMG-20260429-WA0034.jpg" alt="Posadzka epoksydowa – hala magazynowa" loading="lazy" />
         <div class="badge-status badge-done">Ukończone</div>
         <div class="gallery-zoom-icon"><i class="fas fa-expand"></i></div>
         <div class="gallery-overlay"><div class="gallery-overlay-text"><h5>Posadzka epoksydowa – hala magazynowa</h5><span>Przemysłowe</span></div></div>
       </div>
-
       <div class="gallery-item fade-up" data-cat="done industrial" data-title="Posadzka ze strefami ruchu – zakład produkcyjny" data-label="Przemysłowe">
         <img src="IMG-20260429-WA0042.jpg" alt="Posadzka ze strefami ruchu – zakład produkcyjny" loading="lazy" />
         <div class="badge-status badge-done">Ukończone</div>
         <div class="gallery-zoom-icon"><i class="fas fa-expand"></i></div>
         <div class="gallery-overlay"><div class="gallery-overlay-text"><h5>Posadzka ze strefami ruchu – zakład produkcyjny</h5><span>Przemysłowe</span></div></div>
       </div>
+    </div>
   </div>
 </section>
 
@@ -682,31 +639,11 @@
         <a href="#kontakt" class="btn-primary-cta mt-4 d-inline-block">Rozpocznij projekt</a>
       </div>
       <div class="col-lg-6 offset-lg-1">
-        <div class="process-step fade-up">
-          <div class="step-num">1</div>
-          <h4>Bezpłatna wycena i oględziny</h4>
-          <p>Przyjeżdżamy na miejsce, oceniamy stan podłoża i omawiamy wymagania. Przygotowujemy szczegółową i bezpłatną wycenę.</p>
-        </div>
-        <div class="process-step fade-up">
-          <div class="step-num">2</div>
-          <h4>Projekt i dobór systemu</h4>
-          <p>Na podstawie wymagań dobieramy optymalny system żywiczny — kolor, fakturę i właściwości techniczne.</p>
-        </div>
-        <div class="process-step fade-up">
-          <div class="step-num">3</div>
-          <h4>Przygotowanie podłoża</h4>
-          <p>Frezowanie, szlifowanie i naprawa podłoża betonowego. To kluczowy etap decydujący o trwałości posadzki.</p>
-        </div>
-        <div class="process-step fade-up">
-          <div class="step-num">4</div>
-          <h4>Aplikacja systemu żywicznego</h4>
-          <p>Nakładamy kolejne warstwy zgodnie z dokumentacją techniczną i zaleceniami producenta.</p>
-        </div>
-        <div class="process-step fade-up">
-          <div class="step-num">5</div>
-          <h4>Odbiór i dokumentacja</h4>
-          <p>Wspólny odbiór końcowy z protokołem, dokumentacją fotograficzną i przekazaniem karty gwarancyjnej.</p>
-        </div>
+        <div class="process-step fade-up"><div class="step-num">1</div><h4>Kontakt i oględziny</h4><p>Przyjeżdżamy na miejsce, oceniamy stan podłoża i omawiamy wymagania. Przygotowujemy szczegółową i bezpłatną wycenę.</p></div>
+        <div class="process-step fade-up"><div class="step-num">2</div><h4>Projekt i dobór systemu</h4><p>Na podstawie wymagań dobieramy optymalny system żywiczny — kolor, fakturę i właściwości techniczne.</p></div>
+        <div class="process-step fade-up"><div class="step-num">3</div><h4>Przygotowanie podłoża</h4><p>Frezowanie, szlifowanie i naprawa podłoża betonowego. To kluczowy etap decydujący o trwałości posadzki.</p></div>
+        <div class="process-step fade-up"><div class="step-num">4</div><h4>Aplikacja systemu żywicznego</h4><p>Nakładamy kolejne warstwy zgodnie z dokumentacją techniczną i zaleceniami producenta.</p></div>
+        <div class="process-step fade-up"><div class="step-num">5</div><h4>Odbiór i dokumentacja</h4><p>Wspólny odbiór końcowy z protokołem, dokumentacją fotograficzną i przekazaniem karty gwarancyjnej.</p></div>
       </div>
     </div>
   </div>
@@ -718,7 +655,7 @@
     <div class="row mb-5">
       <div class="col">
         <span class="section-label">Kontakt</span>
-        <h2 class="section-title">Bezpłatna wycena</h2>
+        <h2 class="section-title">Kontakt</h2>
         <p class="section-sub">Wypełnij formularz, a odezwiemy się w ciągu 24 godzin.</p>
       </div>
     </div>
@@ -801,7 +738,7 @@
   <div class="container">
     <div class="row g-4 mb-4">
       <div class="col-lg-4">
-        <div class="footer-brand mb-3">RB<em>Resins</em></div>
+        <img src="icon.png" alt="RB Resins" class="footer-logo" />
         <p style="max-width:280px;">Profesjonalne posadzki żywiczne dla przemysłu, komercji i budownictwa mieszkaniowego.</p>
         <div class="mt-3">
           <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
@@ -883,77 +820,63 @@
   });
 
   // Lightbox
-  const lightbox   = document.getElementById('lightbox');
-  const lbImg      = document.getElementById('lbImg');
-  const lbTitle    = document.getElementById('lbTitle');
-  const lbCat      = document.getElementById('lbCat');
-  const lbCounter  = document.getElementById('lbCounter');
-  const lbClose    = document.getElementById('lbClose');
-  const lbPrev     = document.getElementById('lbPrev');
-  const lbNext     = document.getElementById('lbNext');
+  const lightbox  = document.getElementById('lightbox');
+  const lbImg     = document.getElementById('lbImg');
+  const lbTitle   = document.getElementById('lbTitle');
+  const lbCat     = document.getElementById('lbCat');
+  const lbCounter = document.getElementById('lbCounter');
+  const lbClose   = document.getElementById('lbClose');
+  const lbPrev    = document.getElementById('lbPrev');
+  const lbNext    = document.getElementById('lbNext');
+  let currentIdx  = 0;
 
-  // Only items with real <img>
   function getRealItems() {
-    return [...document.querySelectorAll('.gallery-item')].filter(item => {
-      return item.querySelector('img') !== null &&
-             item.style.display !== 'none';
-    });
+    return [...document.querySelectorAll('.gallery-item')].filter(item =>
+      item.querySelector('img') !== null && item.style.display !== 'none'
+    );
   }
-
-  let currentIdx = 0;
-
-  function openLightbox(items, idx) {
-    currentIdx = idx;
-    showSlide(items, idx);
-    lightbox.classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
-
   function showSlide(items, idx) {
     const item = items[idx];
     const img  = item.querySelector('img');
     if (!img) return;
-    lbImg.src   = img.src;
-    lbImg.alt   = img.alt;
-    lbTitle.textContent = item.dataset.title || img.alt;
-    lbCat.textContent   = item.dataset.label || '';
+    lbImg.src  = img.src; lbImg.alt = img.alt;
+    lbTitle.textContent  = item.dataset.title || img.alt;
+    lbCat.textContent    = item.dataset.label || '';
     lbCounter.textContent = (idx + 1) + ' / ' + items.length;
     lbPrev.style.display = items.length > 1 ? 'flex' : 'none';
     lbNext.style.display = items.length > 1 ? 'flex' : 'none';
   }
-
+  function openLightbox(items, idx) {
+    currentIdx = idx; showSlide(items, idx);
+    lightbox.classList.add('active'); document.body.style.overflow = 'hidden';
+  }
   function closeLightbox() {
-    lightbox.classList.remove('active');
-    document.body.style.overflow = '';
+    lightbox.classList.remove('active'); document.body.style.overflow = '';
     setTimeout(() => { lbImg.src = ''; }, 300);
   }
-
-  document.querySelectorAll('.gallery-item').forEach((item, i) => {
+  document.querySelectorAll('.gallery-item').forEach(item => {
     item.addEventListener('click', () => {
-      const realItems = getRealItems();
-      const realIdx = realItems.indexOf(item);
-      if (realIdx === -1) return; // placeholder, skip
-      openLightbox(realItems, realIdx);
+      const items = getRealItems();
+      const idx   = items.indexOf(item);
+      if (idx === -1) return;
+      openLightbox(items, idx);
     });
   });
-
   lbClose.addEventListener('click', closeLightbox);
-  lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
-
-  lbPrev.addEventListener('click', (e) => {
+  lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+  lbPrev.addEventListener('click', e => {
     e.stopPropagation();
     const items = getRealItems();
     currentIdx = (currentIdx - 1 + items.length) % items.length;
     showSlide(items, currentIdx);
   });
-  lbNext.addEventListener('click', (e) => {
+  lbNext.addEventListener('click', e => {
     e.stopPropagation();
     const items = getRealItems();
     currentIdx = (currentIdx + 1) % items.length;
     showSlide(items, currentIdx);
   });
-
-  document.addEventListener('keydown', (e) => {
+  document.addEventListener('keydown', e => {
     if (!lightbox.classList.contains('active')) return;
     if (e.key === 'Escape') closeLightbox();
     if (e.key === 'ArrowLeft') lbPrev.click();
@@ -961,7 +884,7 @@
   });
 
   // Contact form
-  document.getElementById('contactForm').addEventListener('submit', async (e) => {
+  document.getElementById('contactForm').addEventListener('submit', async e => {
     e.preventDefault();
     const submitBtn = document.getElementById('submitBtn');
     const notif = document.getElementById('form-notification');
@@ -984,9 +907,8 @@
       });
       notif.className = 'success';
       notif.innerHTML = '<i class="fas fa-check-circle me-2"></i>Dziękujemy! Twoje zapytanie zostało wysłane. Odezwiemy się w ciągu 24 godzin.';
-      notif.style.display = 'block';
-      e.target.reset();
-    } catch (err) {
+      notif.style.display = 'block'; e.target.reset();
+    } catch {
       notif.className = 'error';
       notif.innerHTML = '<i class="fas fa-exclamation-circle me-2"></i>Wystąpił błąd podczas wysyłania. Spróbuj ponownie lub zadzwoń do nas.';
       notif.style.display = 'block';
